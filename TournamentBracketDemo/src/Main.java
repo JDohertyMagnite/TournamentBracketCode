@@ -35,28 +35,68 @@ public class Main {
         currentPlayersHash.add(new Player("John", "123", 6));
         currentPlayersHash.add(new Player("Eve", "123", 7));
         currentPlayersHash.add(new Player("Tiarnan", "123", 8));
-        //Player[] tempPlayerHashArray = new Player[currentPlayersHash.size()];
-        //tempPlayerHashArray = currentPlayersHash.toArray(tempPlayerHashArray);
-        /*for(int i = 0; i < tempPlayerHashArray.length; i++)
-        {
-            System.out.println(tempPlayerHashArray[i].getName());
-        }*/
+
+        LinkedHashSet<Player> test = new LinkedHashSet<>();
+        test = (LinkedHashSet<Player>) currentPlayersHash.clone();
+        currentPlayersHash.clear();
+        debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Current Players");
+        debugPrintAll(convertLHStoArrayList(test), "Test");
+
+
+
+
+
+
+
+
+        /*
         createNewMatchHash();
         System.out.println(currentPlayersHash.size());
-        debugPrintAll(convertLHStoArrayList(currentPlayersHash));
-        debugPrintAll(convertLHStoArrayList(currentMatchHash));
-
-
-
-
-
-
+        debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players");
+        debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
+        */
     }
 
-    public static void debugPrintAll(ArrayList<Player> myList)
+    public static void determineMatchHash(int winner) // Takes 0 or 1 as input, 0 being person on left, 1 being person on right
+    {
+
+        ArrayList<Player> insertMatch = convertLHStoArrayList(currentMatchHash);
+        for(int x = 0; x < insertMatch.size(); x++)
+        {
+            tempMatchHash.add(insertMatch.get(x));
+        }
+
+        ArrayList<Player> insertWinners = convertLHStoArrayList(currentWinnersHash);
+        if(currentWinnersHash.size() != 0)
+        {
+            for(int x = 0; x < insertMatch.size(); x++)
+            {
+                tempWinnersHash.add(insertMatch.get(x));
+            }
+        }
+
+
+        tempWinnersHash.add(insertMatch.get(winner));
+
+        ArrayList<Player> insertMatchWinner = convertLHStoArrayList(tempWinnersHash);
+        for(int x = 0; x < insertMatch.size(); x++)
+        {
+            currentWinnersHash.add(insertMatch.get(x));
+        }
+
+        tempMatchHash.clear();
+        currentMatchHash = (LinkedHashSet<Player>) tempMatchHash.clone();
+
+
+        currentMatchList.clear(); // Clears list
+        currentMatch = convertListToString(currentMatchList);
+        currentWinnersList.clear(); // Clears list
+    }
+
+    public static void debugPrintAll(ArrayList<Player> myList, String arrayName)
     {
         System.out.println("--------------------------");
-        System.out.println("Debug Printing Arraylist");
+        System.out.println("Debug Printing " + arrayName);
         for(int i = 0; i < myList.size(); i++)
         {
             System.out.println(myList.get(i).getName());
@@ -88,49 +128,28 @@ public class Main {
             tempWinnersHash.clear(); // Clears previous rounds winners.
         }
         ArrayList<Player> tempPlayerHashList = convertLHStoArrayList(tempPlayersHash);
-        //System.out.println(tempPlayerHashList.size());
-        //debugPrintAll(tempPlayerHashList);
         tempMatchHash.add(tempPlayerHashList.get(0)); // Adds player at position zero in list to current match
         tempMatchHash.add(tempPlayerHashList.get(1)); // Adds player at position zero in list to current match
-        //debugPrintAll(convertLHStoArrayList(tempMatchHash));
         tempPlayerHashList.remove(0);
         tempPlayerHashList.remove(0);
-        //debugPrintAll(tempPlayerHashList);
-        //System.out.println(tempPlayerHashList.size());
         tempPlayersHash.clear();
         for(int x = 0; x < tempPlayerHashList.size(); x++)
         {
             tempPlayersHash.add(tempPlayerHashList.get(x));
         }
-
-
         //Adding temporary hash to current hash for players
-        //debugPrintAll(convertLHStoArrayList(tempPlayersHash));
         ArrayList<Player> insertPlayer = convertLHStoArrayList(tempPlayersHash);
-        //debugPrintAll(insertPlayer);
         for(int x = 0; x < insertPlayer.size(); x++)
         {
             currentPlayersHash.add(insertPlayer.get(x));
         }
 
         //Adding temporary hash to current hash for Match
-       //debugPrintAll(convertLHStoArrayList(tempMatchHash));
         ArrayList<Player> insertMatch = convertLHStoArrayList(tempMatchHash);
-        //debugPrintAll(insertMatch);
         for(int x = 0; x < insertMatch.size(); x++)
         {
             currentMatchHash.add(insertMatch.get(x));
         }
-
-
-
-
-
-        //currentPlayersHash = tempPlayersHash;
-        //currentMatchHash = tempMatchHash;
-        //tempPlayersHash.clear();
-        //tempWinnersHash.clear();
-        //tempMatchHash.clear();
 
         return currentMatchHash;
     }
