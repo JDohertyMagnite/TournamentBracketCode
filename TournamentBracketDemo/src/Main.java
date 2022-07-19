@@ -36,44 +36,39 @@ public class Main {
         currentPlayersHash.add(new Player("Eve", "123", 7));
         currentPlayersHash.add(new Player("Tiarnan", "123", 8));
 
+        for(int i = 0; i < 8; i++)
+        {
+            if(isWinnerFound() == 0)
+            {
+                createNewMatchHash();
+                determineMatchHash(1);
+                debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players");
+                debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
+                debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
+                System.out.println(currentWinnersHash.size());
+            } else
+            {
+                System.out.println("The Winner is: " + convertLHStoArrayList(currentWinnersHash).get(0).getName());
 
-        createNewMatchHash();
-        System.out.println(currentPlayersHash.size());
-        debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players");
-        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
-        determineMatchHash(1);
-        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players");
-        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
+            }
 
-        createNewMatchHash();
-        System.out.println(currentPlayersHash.size());
-        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players");
-        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
-        determineMatchHash(1);
-        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
-        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
 
-        createNewMatchHash();
-        determineMatchHash(1);
-        createNewMatchHash();
-        determineMatchHash(1);
-
-        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
-        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
-
-        createNewMatchHash();
-        determineMatchHash(1);
-        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
-        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
+        }
 
 
 
+    }
+
+    public static int isWinnerFound()
+    {
+        int winnerFound = 0;
+        System.out.println("GotHere");
+        if(currentPlayersHash.isEmpty() && currentWinnersHash.size() == 1)
+        {
+            System.out.println("GotHere2");
+            winnerFound = 1;
+        }
+        return winnerFound;
     }
 
     public static void determineMatchHash(int winner) // Takes 0 or 1 as input, 0 being person on left, 1 being person on right
@@ -86,7 +81,7 @@ public class Main {
         }
 
         ArrayList<Player> insertWinners = convertLHStoArrayList(currentWinnersHash);
-        if(currentWinnersHash.size() != 0)
+        if((currentWinnersHash.isEmpty()))
         {
             for(int x = 0; x < insertWinners.size(); x++)
             {
@@ -129,9 +124,9 @@ public class Main {
     public static LinkedHashSet<Player> createNewMatchHash() // most likely will be endpoint
     {
 
-        tempPlayersHash = (LinkedHashSet<Player>) currentPlayersHash.clone(); // Takes data from table and stores in list
+        tempPlayersHash = currentPlayersHash; // Takes data from table and stores in list
         //System.out.println(tempPlayersHash.size());
-        tempWinnersHash = (LinkedHashSet<Player>) currentWinnersHash.clone(); // Takes data from table and stores in list
+        tempWinnersHash = currentWinnersHash; // Takes data from table and stores in list
         if(tempPlayersHash.size() == 0) // Checks if current round has any players left and if not creates new round with winners.
         {
             tempPlayersHash = (LinkedHashSet<Player>) tempWinnersHash.clone(); // Sets current round players as last rounds winners
