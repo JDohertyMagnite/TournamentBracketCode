@@ -62,15 +62,15 @@ public class Main {
         createNewMatchHash();
         determineMatchHash(1);
 
-        debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
-        debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
+        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
+        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
+        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
 
         createNewMatchHash();
         determineMatchHash(1);
-        debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
-        debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
-        debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
+        //debugPrintAll(convertLHStoArrayList(currentPlayersHash), "Players ");
+        //debugPrintAll(convertLHStoArrayList(currentMatchHash), "Match");
+        //debugPrintAll(convertLHStoArrayList(currentWinnersHash), "Winners");
 
 
 
@@ -160,6 +160,7 @@ public class Main {
         {
             currentMatchHash.add(insertMatch.get(x));
         }
+        currentWinnersHash = (LinkedHashSet<Player>) tempWinnersHash.clone();
 
         return currentMatchHash;
     }
